@@ -1,4 +1,4 @@
-package com.bignerdranch.android.criminalintent;
+package com.bignerdranch.android.criminalintent.controller.list;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,6 +12,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bignerdranch.android.criminalintent.R;
+import com.bignerdranch.android.criminalintent.model.Crime;
+import com.bignerdranch.android.criminalintent.model.CrimeLab;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.bignerdranch.android.criminalintent;
+package com.bignerdranch.android.criminalintent.controller.crime;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,6 +13,9 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+
+import com.bignerdranch.android.criminalintent.R;
+import com.bignerdranch.android.criminalintent.model.Crime;
 
 import static android.widget.CompoundButton.*;
 
