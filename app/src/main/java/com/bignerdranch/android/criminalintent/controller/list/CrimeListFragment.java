@@ -16,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bignerdranch.android.criminalintent.R;
-import com.bignerdranch.android.criminalintent.controller.crime.CrimeActivity;
+import com.bignerdranch.android.criminalintent.controller.crime.CrimePagerActivity;
 import com.bignerdranch.android.criminalintent.model.Crime;
 import com.bignerdranch.android.criminalintent.model.CrimeLab;
 
@@ -28,9 +28,6 @@ public class CrimeListFragment extends Fragment {
 
     private RecyclerView mCrimeRecyclerView;
     private CrimeAdapter mAdapter;
-
-    // Optimization for efficient RecyclerView reloading
-    private Integer lastSelectedPosition;
 
     @Nullable
     @Override
@@ -59,12 +56,8 @@ public class CrimeListFragment extends Fragment {
             List<Crime> crimes = crimeLab.getCrimes();
             mAdapter = new CrimeAdapter(crimes);
             mCrimeRecyclerView.setAdapter(mAdapter);
-        } else if (lastSelectedPosition == null){
+        } else {
             mAdapter.notifyDataSetChanged();
-        } else if (lastSelectedPosition < mAdapter.getItemCount()) {
-            // Only reload the changed item
-            Log.d(TAG, "lastSelectedPosition: " + lastSelectedPosition);
-            mAdapter.notifyItemChanged(lastSelectedPosition);
         }
     }
 
@@ -88,10 +81,7 @@ public class CrimeListFragment extends Fragment {
 
         @Override
         public void onClick(View view) {
-            // Remember the last selected item
-            lastSelectedPosition = getAdapterPosition();
-
-            Intent intent = CrimeActivity.newIntent(getActivity(), mCrime.getId());
+            Intent intent = CrimePagerActivity.newIntent(getActivity(), mCrime.getId());
             getActivity().startActivity(intent);
         }
 
