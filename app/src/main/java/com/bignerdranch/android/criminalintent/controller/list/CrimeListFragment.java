@@ -61,7 +61,7 @@ public class CrimeListFragment extends Fragment {
             mCrimeRecyclerView.setAdapter(mAdapter);
         } else if (lastSelectedPosition == null){
             mAdapter.notifyDataSetChanged();
-        } else if (lastSelectedPosition < mAdapter.mCrimes.size()) {
+        } else if (lastSelectedPosition < mAdapter.getItemCount()) {
             // Only reload the changed item
             Log.d(TAG, "lastSelectedPosition: " + lastSelectedPosition);
             mAdapter.notifyItemChanged(lastSelectedPosition);
