@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,8 +24,13 @@ import java.util.List;
 
 public class CrimeListFragment extends Fragment {
 
+    private static final String TAG = "CrimeListFragment";
+
     private RecyclerView mCrimeRecyclerView;
     private CrimeAdapter mAdapter;
+
+    // Optimization for efficient RecyclerView reloading
+    private Integer lastSelectedPosition;
 
     @Nullable
     @Override
@@ -48,14 +54,17 @@ public class CrimeListFragment extends Fragment {
     }
 
     private void updateUI() {
-        CrimeLab crimeLab = CrimeLab.get(getActivity());
-        List<Crime> crimes = crimeLab.getCrimes();
-
         if (mAdapter == null) {
+            CrimeLab crimeLab = CrimeLab.get(getActivity());
+            List<Crime> crimes = crimeLab.getCrimes();
             mAdapter = new CrimeAdapter(crimes);
             mCrimeRecyclerView.setAdapter(mAdapter);
-        } else {
+        } else if (lastSelectedPosition == null){
             mAdapter.notifyDataSetChanged();
+        } else if (lastSelectedPosition < mAdapter.mCrimes.size()) {
+            // Only reload the changed item
+            Log.d(TAG, "lastSelectedPosition: " + lastSelectedPosition);
+            mAdapter.notifyItemChanged(lastSelectedPosition);
         }
     }
 
@@ -79,6 +88,9 @@ public class CrimeListFragment extends Fragment {
 
         @Override
         public void onClick(View view) {
+            // Remember the last selected item
+            lastSelectedPosition = getAdapterPosition();
+
             Intent intent = CrimeActivity.newIntent(getActivity(), mCrime.getId());
             getActivity().startActivity(intent);
         }
