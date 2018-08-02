@@ -1,6 +1,9 @@
 package com.bignerdranch.android.criminalintent.controller.crime;
 
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -13,8 +16,12 @@ import com.bignerdranch.android.criminalintent.R;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class DatePickerFragment extends DialogFragment {
+
+    public static final String EXTRA_DATE =
+            "com.bignerdranch.android.criminalintent.date";
 
     private static final String ARG_DATE = "date";
 
@@ -49,7 +56,29 @@ public class DatePickerFragment extends DialogFragment {
         return new AlertDialog.Builder(getActivity())
                 .setView(v)
                 .setTitle(R.string.date_picker_title)
-                .setPositiveButton(android.R.string.ok, null)
+                .setPositiveButton(android.R.string.ok,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                int year = mDatePicker.getYear();
+                                int month = mDatePicker.getMonth();
+                                int day = mDatePicker.getDayOfMonth();
+                                Date date = new GregorianCalendar(year, month, day).getTime();
+                                sendResult(Activity.RESULT_OK, date);
+                            }
+                })
                 .create();
+    }
+
+    private void sendResult(int resultCode, Date date) {
+        if (getTargetFragment() == null) {
+            return;
+        }
+
+        Intent intent = new Intent();
+        intent.putExtra(EXTRA_DATE, date);
+
+        getTargetFragment()
+                .onActivityResult(getTargetRequestCode(), resultCode, intent);
     }
 }
