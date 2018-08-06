@@ -32,7 +32,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.bignerdranch.android.criminalintent.R;
-import com.bignerdranch.android.criminalintent.model.Crime;
+import com.bignerdranch.android.criminalintent.model.entity.Crime;
 import com.bignerdranch.android.criminalintent.model.CrimeLab;
 import com.bignerdranch.android.criminalintent.utils.PictureUtils;
 

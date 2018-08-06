@@ -3,7 +3,7 @@ package com.bignerdranch.android.criminalintent.model.database;
 import android.database.Cursor;
 import android.database.CursorWrapper;
 
-import com.bignerdranch.android.criminalintent.model.Crime;
+import com.bignerdranch.android.criminalintent.model.entity.Crime;
 import com.bignerdranch.android.criminalintent.model.database.CrimeDBSchema.CrimeTable;
 
 import java.util.Date;
