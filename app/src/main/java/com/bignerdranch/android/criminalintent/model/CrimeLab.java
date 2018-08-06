@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class CrimeLab {
-
+    // singleton
     private static CrimeLab sCrimeLab;
 
     private Context mContext;
@@ -28,6 +28,8 @@ public class CrimeLab {
     }
 
     private CrimeLab(Context context) {
+        // To avoid activities never being cleaned up by the garbage collector,
+        // we use the application context.
         mContext = context.getApplicationContext();
         mDatabase = new CrimeBaseHelper(mContext)
                 .getWritableDatabase();
