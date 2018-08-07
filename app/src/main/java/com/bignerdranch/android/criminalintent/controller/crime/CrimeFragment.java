@@ -31,6 +31,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bignerdranch.android.criminalintent.R;
 import com.bignerdranch.android.criminalintent.model.entity.Crime;
@@ -69,6 +70,10 @@ public class CrimeFragment extends Fragment {
      * */
     public interface Callbacks {
         void onCrimeUpdated(Crime crime);
+
+        void onCrimeDeleted(Fragment fragment);
+
+        boolean isPhone();
     }
 
     public static CrimeFragment newInstance(UUID crimeId) {
@@ -92,6 +97,9 @@ public class CrimeFragment extends Fragment {
         setHasOptionsMenu(true);
         UUID crimeId = (UUID) getArguments().getSerializable(ARG_CRIME_ID);
         mCrime = CrimeLab.get(getActivity()).getCrime(crimeId);
+        if (mCrime == null) {
+            getActivity().finish();
+        }
         mPhotoFile = CrimeLab.get(getActivity()).getPhotoFile(mCrime);
     }
 
@@ -237,7 +245,14 @@ public class CrimeFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.delete_crime:
                 CrimeLab.get(getActivity()).deleteCrime(mCrime);
-                getActivity().finish();
+                Toast.makeText(getActivity(), "Crime was deleted!", Toast.LENGTH_SHORT).show();
+
+                if (mCallbacks.isPhone()) {
+                    getActivity().finish();
+                } else {
+                    updateCrime();
+                    mCallbacks.onCrimeDeleted(this);
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bignerdranch.android.criminalintent.R;
 import com.bignerdranch.android.criminalintent.controller.crime.CrimePagerActivity;
@@ -113,6 +114,7 @@ public class CrimeListFragment extends Fragment {
                 Crime crime = new Crime();
                 CrimeLab.get(getActivity()).addCrime(crime);
                 updateUI();
+                Toast.makeText(getActivity(), "Crime was created!", Toast.LENGTH_SHORT).show();
                 mCallbacks.onCrimeSelected(crime);
                 return true;
             case R.id.show_subtitle:

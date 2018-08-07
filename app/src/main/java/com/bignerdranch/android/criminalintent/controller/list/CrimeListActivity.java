@@ -24,7 +24,7 @@ public class CrimeListActivity extends SingleFragmentActivity
 
     @Override
     public void onCrimeSelected(Crime crime) {
-        if (findViewById(R.id.detail_fragment_container) == null) {
+        if (isPhone()) {
             Intent intent = CrimePagerActivity.newIntent(this, crime.getId());
             startActivity(intent);
         } else {
@@ -42,5 +42,17 @@ public class CrimeListActivity extends SingleFragmentActivity
                 getSupportFragmentManager()
                         .findFragmentById(R.id.fragment_container);
         listFragment.updateUI();
+    }
+
+    @Override
+    public void onCrimeDeleted(Fragment fragment) {
+        getSupportFragmentManager().beginTransaction()
+                .remove(fragment)
+                .commit();
+    }
+
+    @Override
+    public boolean isPhone() {
+        return findViewById(R.id.detail_fragment_container) == null;
     }
 }
