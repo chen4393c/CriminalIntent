@@ -114,7 +114,11 @@ public class CrimeListFragment extends Fragment {
                 Crime crime = new Crime();
                 CrimeLab.get(getActivity()).addCrime(crime);
                 updateUI();
-                Toast.makeText(getActivity(), "Crime was created!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(
+                        getActivity(),
+                        getString(R.string.new_crime_toast),
+                        Toast.LENGTH_SHORT
+                ).show();
                 mCallbacks.onCrimeSelected(crime);
                 return true;
             case R.id.show_subtitle:

@@ -245,7 +245,11 @@ public class CrimeFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.delete_crime:
                 CrimeLab.get(getActivity()).deleteCrime(mCrime);
-                Toast.makeText(getActivity(), "Crime was deleted!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(
+                        getActivity(),
+                        getString(R.string.delete_crime_toast),
+                        Toast.LENGTH_SHORT
+                ).show();
 
                 if (mCallbacks.isPhone()) {
                     getActivity().finish();
