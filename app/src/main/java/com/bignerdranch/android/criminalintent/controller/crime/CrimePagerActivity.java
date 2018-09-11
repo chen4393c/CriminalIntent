@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.bignerdranch.android.criminalintent.R;
 import com.bignerdranch.android.criminalintent.model.entity.Crime;
@@ -19,6 +20,8 @@ import java.util.UUID;
 
 public class CrimePagerActivity extends AppCompatActivity
         implements CrimeFragment.Callbacks {
+
+    private static final String TAG = "CrimePagerActivity";
 
     private static final String EXTRA_CRIME_ID =
             "com.bignerdranch.android.criminalintent.crime_id";
@@ -35,6 +38,7 @@ public class CrimePagerActivity extends AppCompatActivity
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i(TAG, "onCreate()");
         setContentView(R.layout.activity_crime_pager);
 
         UUID crimeId = (UUID) getIntent().getSerializableExtra(EXTRA_CRIME_ID);
@@ -78,5 +82,41 @@ public class CrimePagerActivity extends AppCompatActivity
     @Override
     public boolean isPhone() {
         return findViewById(R.id.detail_fragment_container) == null;
+    }
+
+    @Override
+    protected void onRestart() {
+        Log.i(TAG, "onRestart()");
+        super.onRestart();
+    }
+
+    @Override
+    protected void onStart() {
+        Log.i(TAG, "onStart()");
+        super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        Log.i(TAG, "onResume()");
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        Log.i(TAG, "onPause()");
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        Log.i(TAG, "onStop()");
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        Log.i(TAG, "onDestroy()");
+        super.onDestroy();
     }
 }
